@@ -1,0 +1,21 @@
+# Exclude development and debugging files
+*.pyc
+*.pyo
+*.pyd
+*.swp
+**/__pycache__
+
+# Exclude local development files
+*.env
+*.log
+*.sqlite3
+
+# Exclude version control files and directories
+.git
+.gitignore
+.svn
+
+# Exclude other unnecessary files and directories
+media
+static
+node_modules
