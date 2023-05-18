@@ -1,7 +1,10 @@
 from rest_framework import serializers
 from .models import Student
 
-class StudentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Student
-        fields = ('first_name', 'last_name', 'age', 'email',)
+
+class StudentSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+    age = serializers.IntegerField()
+    email = serializers.EmailField()
