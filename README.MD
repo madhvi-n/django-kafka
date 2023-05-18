@@ -1,6 +1,6 @@
 # Django-Kafka
 Django CRUD application integrated with Kafka messaging system for efficient asynchronous data processing and near real-time updates.
-***
+
 
 ## Project requirements
 - Python 3.8+
@@ -15,7 +15,7 @@ Django CRUD application integrated with Kafka messaging system for efficient asy
 
 
 
-#### Summary of the configuration(what each file does):
+### Summary of the configuration(what each file does):
 **Dockerfile**:
 - Sets the base image as Python 3.10.
 - Sets environment variables.
