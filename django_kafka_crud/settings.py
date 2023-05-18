@@ -27,15 +27,12 @@ DATABASE_NAME = 'students'
 DATABASE_USER = 'postgres'
 DATABASE_PASSWORD = '123456'
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    '172.18.0.3', # IP address of redis docker container
-    '172.18.0.4', # IP address of postgres docker container
-    '172.18.0.5', # IP address of kafka docker container
-    '172.18.0.6', # IP address of django docker container
     '127.0.0.1'
 ]
 
@@ -99,13 +96,13 @@ DATABASES = {
         'NAME': 'students',
         'USER': 'postgres',
         'PASSWORD': '123456',
-        'HOST': 'postgresql', # IP address of postgresql docker container
+        'HOST': 'postgresql', # Referers to postgresql service in docker
         'PORT': 5432,
     }
 }
 
 # Set up Kafka configuration
-KAFKA_BOOTSTRAP_SERVERS = '172.18.0.5:9092'
+KAFKA_BOOTSTRAP_SERVERS = 'kafka:9092' # Refers to kafka service in docker
 KAFKA_TOPIC = 'student-topic'
 
 # Add Kafka producer configuration
@@ -125,16 +122,32 @@ KAFKA_TOPIC = 'student-topic'
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://localhost:6379/1',
+        'LOCATION': 'redis://redis:6379/1',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
+        },
     }
 }
 
+
+
+# Authentication backend
 AUTHENCATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
+
+# Rate limiter
+# REST_FRAMEWORK = {
+#     'DEFAULT_THROTTLE_CLASSES': [
+#         'rest_framework.throttling.AnonRateThrottle',
+#         'rest_framework.throttling.UserRateThrottle',
+#     ],
+#     'DEFAULT_THROTTLE_RATES': {
+#         'anon': '1/minute',
+#         'user': '1/minute',
+#     }
+# }
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -175,12 +188,12 @@ SITE_ID = 1
 STATIC_URL = '/static/'
 
 # Celery configuration
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
-CELERY_RESULT_BACKEND = 'db+postgresql://postgres:123456@172.18.0.4/students'
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_RESULT_BACKEND = 'db+postgresql://postgres:123456@postgresql/students'
 
 CELERY_BEAT_SCHEDULE = {
-    'process_kafka_messages': {
-        'task': 'students.tasks.process_kafka_messages',  # Task name or path
-        'schedule': 60.0,  # Run the task every 60 seconds (1 minute)
+    'process-kafka-messages': {
+        'task': 'students.tasks.process_kafka_messages',
+        'schedule': 60.0,  # 60 seconds (1 minute)
     }
 }
