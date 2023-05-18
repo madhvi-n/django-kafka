@@ -32,6 +32,7 @@ services:
       - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
       - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_LOG_RETENTION_MS=86400000
     ports:
       - 9092:9092
       - 29092:29092
@@ -44,6 +45,26 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8000:8000
+    depends_on:
+      - redis
+      - postgresql
+      - kafka
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A students worker -l info -E
+    depends_on:
+      - redis
+      - postgresql
+      - kafka
+
+  celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A students beat -l info
     depends_on:
       - redis
       - postgresql
