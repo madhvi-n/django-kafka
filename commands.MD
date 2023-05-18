@@ -87,3 +87,6 @@
 
 ##### Delete replicasets
 `kubectl delete replicaset my-empty-replicaset`
+
+##### To check data produced using Kafka Producer
+docker exec -it django_kafka_crud-kafka-1 kafka-console-consumer --bootstrap-server 172.18.0.5:9092 --topic student-topic --from-beginning
