@@ -107,18 +107,6 @@ DATABASES = {
 KAFKA_BOOTSTRAP_SERVERS = 'kafka:9092' # Refers to kafka service in docker
 KAFKA_TOPIC = 'student-topic'
 
-# Add Kafka producer configuration
-# KAFKA_PRODUCER_CONFIG = {
-#     'bootstrap_servers': KAFKA_BOOTSTRAP_SERVERS,
-#     'value_serializer': lambda v: json.dumps(v).encode('utf-8'),
-# }
-#
-# # Add Kafka consumer configuration
-# KAFKA_CONSUMER_CONFIG = {
-#     'bootstrap_servers': KAFKA_BOOTSTRAP_SERVERS,
-#     'value_deserializer': lambda v: json.loads(v.decode('utf-8')),
-# }
-
 
 # Caching with Redis
 CACHES = {
