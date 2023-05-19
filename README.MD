@@ -1,6 +1,8 @@
 # Django Kafka CRUD
 Django Kafka CRUD is a Django-based CRUD application integrated with Kafka messaging system for asynchronous data processing. It allows you to save and retrieve student records using REST endpoints. The application leverages Kafka to ensure efficient handling of data-intensive tasks and provides near real-time updates.
 
+[![Django CI](https://github.com/madhvi-n/store-monitoring/actions/workflows/django.yml/badge.svg)](https://github.com/madhvi-n/store-monitoring/actions/workflows/django.yml)
+
 
 ## Project requirements
 - Python 3.10
