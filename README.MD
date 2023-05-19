@@ -9,22 +9,39 @@ Django Kafka CRUD is a Django-based CRUD application integrated with Kafka messa
 - Docker
 
 ## Installation
-- Clone the repository `git clone https://github.com/madhvi-n/django-kafka-crud.git`
-
-- Navigate to project directory `cd django_kafka_crud`
-
-
-- Create a virtual environment `virtualenv venv --python=python3`
-
-- Activate the virtual environment `source venv/bin/activate`
-
-- Install the project dependencies `pip install -r requirements.txt`
+- Clone the repository and enter the root directory
+    ```
+    git clone https://github.com/madhvi-n/django_kafka_crud.git
+    cd django_kafka_crud
+    ```
 
 
-- Create a `.env` file in the root directory of the project and configure the required environment variables. Refer to the .env.example file for the list of variables and their sample values.
+- Create a virtual environment and activate it
+    ```
+    virtualenv venv
+    source venv/bin/activate
+```
+
+- Making sure your virtual environment is activated, install the dependencies using `pip`
+    ```
+    pip install -r requirements.txt
+    ```
+
+- Create a `.env` file in the root directory of the project and configure the required environment variables. Refer to the `.env.sample` file for the list of variables and their sample values.
 
 
- - Build the docker images defined in docker compose file and start the containers in detached mode (in the background) `docker compose build && docker compose up -d`
+- Create postgresql database using `psql` and store the credentials in .env
+    ```
+    psql -U postgres
+    CREATE DATABASE your_database_name;
+    GRANT ALL PRIVILEGES ON DATABASE your_database_name TO your_username;
+    ```
+
+- Build the docker images defined in docker compose file and start the containers in detached mode (in the background) 
+
+    ```
+    docker compose build && docker compose up -d
+    ```
 
 
 - Access the students api at the endpoint `http://localhost:8000/api/v1/students/`
