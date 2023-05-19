@@ -89,4 +89,8 @@
 `kubectl delete replicaset my-empty-replicaset`
 
 ##### To check data produced using Kafka Producer
-`docker exec -it <kafka_container_name> kafka-console-consumer --bootstrap-server <bootstrap_servers> --topic <topic_name> --from-beginning
+`docker exec -it <kafka_container_name> kafka-console-consumer --bootstrap-server <bootstrap_servers> --topic <topic_name> --from-beginning`
+
+##### To access redis database
+`docker exec -it django_kafka_crud-redis-1 redis-cli -n 1`
+where n denotes nth database in redis. By default, Redis has 16 databases numbered from 0 to 15
