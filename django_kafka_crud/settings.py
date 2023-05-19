@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import json
+import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2f^)dfb-*$#ez%5jmibj0n4t&(+_rlwcz1wa1qetf7gxm8)fyz'
+SECRET_KEY = config('DJANGO_SECRET_KEY')
 
-DATABASE_NAME = 'students'
-DATABASE_USER = 'postgres'
-DATABASE_PASSWORD = '123456'
 
+DATABASE_NAME = config('POSTGRES_DB')
+DATABASE_USER = config('POSTGRES_USER')
+DATABASE_PASSWORD = config('POSTGRES_PASSWORD')
+DATABASE_HOST = 'postgresql' # Refers to postgresql service in docker
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -51,6 +54,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_framework',
+    'rest_auth',
+    'rest_auth.registration',
     'core',
     'students',
 ]
@@ -93,10 +98,10 @@ WSGI_APPLICATION = 'django_kafka_crud.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'students',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': 'postgresql', # Referers to postgresql service in docker
+        'NAME': DATABASE_NAME,
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST': DATABASE_HOST,
         'PORT': 5432,
     }
 }
@@ -189,7 +194,8 @@ STATIC_URL = '/static/'
 
 # Celery configuration
 CELERY_BROKER_URL = 'redis://redis:6379/0'
-CELERY_RESULT_BACKEND = 'db+postgresql://postgres:123456@postgresql/students'
+CELERY_RESULT_BACKEND = f'db+postgresql://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}/{DATABASE_NAME}'
+
 
 CELERY_BEAT_SCHEDULE = {
     'process-kafka-messages': {

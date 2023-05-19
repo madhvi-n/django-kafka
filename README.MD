@@ -1,19 +1,47 @@
-# Django-Kafka
-Django CRUD application integrated with Kafka messaging system for efficient asynchronous data processing and near real-time updates.
+# Django Kafka CRUD
+Django Kafka CRUD is a Django-based CRUD application integrated with Kafka messaging system for asynchronous data processing. It allows you to save and retrieve student records using REST endpoints. The application leverages Kafka to ensure efficient handling of data-intensive tasks and provides near real-time updates.
 
 
 ## Project requirements
-- Python 3.8+
+- Python 3.10
 - Docker
 
-## Running the project
+## Installation
+- Clone the repository
+`git clone https://github.com/madhvi-n/django-kafka-crud.git`
+<br>
+
+- Navigate to project directory
+`cd django_kafka_crud`
+<br>
+
+- Create a virtual environment
+`virtualenv venv --python=python3`
+<br>
+
+- Activate the virtual environment
+`source venv/bin/activate`
+<br>
+
+- Install the project dependencies
+`pip install -r requirements.txt`
+<br>
+
+- Create a `.env` file in the root directory of the project and configure the required environment variables.
+Refer to the .env.example file for the list of variables and their sample values.
+
+<br>
+
  - Build the docker images defined in docker compose file and start the containers in detached mode (in the background)
 `docker compose build && docker compose up -d`
+<br>
 
+- Access the students api at the endpoint
+`http://localhost:8000/api/v1/students/`
+<br>
 
-- Access the students api at the endpoint `http://localhost:8000/api/v1/students/`
-
-
+- The application should now be running locally. Access it in your web browser at `http://localhost:8000`.
+<br>
 
 ### Summary of the configuration(what each file does):
 **Dockerfile**:
