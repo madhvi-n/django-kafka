@@ -8,4 +8,4 @@ class StudentSerializer(serializers.Serializer):
     last_name = serializers.CharField()
     age = serializers.IntegerField()
     email = serializers.EmailField()
-    created_at = serializers.CharField()
+    created_at = serializers.DateTimeField()
