@@ -1,6 +1,7 @@
 from kafka import KafkaProducer, KafkaConsumer
 from kafka.errors import KafkaError
 from django.conf import settings
+from students.models import Student
 import json
 
 
@@ -22,12 +23,13 @@ def fetch_data_from_kafka():
         group_id='student_consumer_group',
         value_deserializer=lambda x: json.loads(x.decode('utf-8'))
     )
-
     fetched_data = []
     for message in consumer:
-        data = message.value  # Decode the message value
-        fetched_data.append(data)
-        print(f"Fetched data from Kafka: {data}")
-
+        data = message.value
+        # TODO: Move this logic outside this function
+        student, created = Student.objects.get_or_create(
+            first_name=data['first_name'], last_name=data['last_name'],
+            age=data['age'],
+            email=data['email']
+        )
     consumer.close()
-    return fetched_data
