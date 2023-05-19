@@ -9,7 +9,7 @@ Django Kafka CRUD is a Django-based CRUD application integrated with Kafka messa
 - Docker
 
 ## Installation
-- Clone the repository and enter the root directory
+- Clone the repository and navigate to the root directory
     ```
     git clone https://github.com/madhvi-n/django_kafka_crud.git
     cd django_kafka_crud
@@ -18,7 +18,7 @@ Django Kafka CRUD is a Django-based CRUD application integrated with Kafka messa
 
 - Create a virtual environment and activate it
     ```
-    virtualenv venv
+    virtualenv venv --python=python3
     source venv/bin/activate
     ```
 
@@ -36,7 +36,13 @@ Django Kafka CRUD is a Django-based CRUD application integrated with Kafka messa
     CREATE DATABASE your_database_name;
     GRANT ALL PRIVILEGES ON DATABASE your_database_name TO your_username;
     ```
-
+- Run django migrations and create superuser to access django admin
+    ```
+    python manage.py migrate
+    python manage.py createsuperuser
+    ```
+    Note: You might run into an error for postgres settings in Django. Bypass it by changing the host to localhost but make sure to change it back when running Docker. 
+    
 - Build the docker images defined in docker compose file and start the containers in detached mode (in the background) 
     ```
     docker compose build && docker compose up -d
