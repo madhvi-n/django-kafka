@@ -16,7 +16,7 @@ class Student(models.Model):
         ]
         verbose_name = 'student'
         verbose_name_plural = 'students'
-        ordering = ['last_name', 'first_name']
+        ordering = ['created_at']
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
