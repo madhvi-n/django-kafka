@@ -6,8 +6,8 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from students.models import Student
 from students.serializers import StudentSerializer
-from .kafka_util import send_data_to_kafka
-from utils import ratelimiter
+from core.services import send_data_to_kafka
+from core.decorators import rate_limit
 
 
 class StudentPagination(PageNumberPagination):
@@ -20,15 +20,17 @@ class StudentViewSet(BaseViewSet):
     pagination_class = StudentPagination
     permission_classes = [IsAuthenticated, ]
 
+    @rate_limit(rate=1, period=60)
     def create(self, request):
         data = request.data
         if not request.user.is_authenticated:
             return Response({"error": "The user is anonymous"}, status=status.HTTP_401_UNAUTHORIZED)
+
         try:
             serializer_class = self.get_serializer_class()
             serializer = serializer_class(data=data)
             if serializer.is_valid():
-                # Instead of saving the object, pass it to send_data_to_kafka function
+                # Instead of saving the object, pass it to kafka queue function
                 send_data_to_kafka(serializer.validated_data)
                 return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
             else:

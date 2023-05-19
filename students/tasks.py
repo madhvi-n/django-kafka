@@ -1,11 +1,5 @@
 from celery import shared_task
-from .kafka_util import fetch_data_from_kafka
-from django.db import transaction
-from students.models import Student
-from kafka import KafkaProducer, KafkaConsumer
-from kafka.errors import KafkaError
-from django.conf import settings
-import json
+from core.services import fetch_data_from_kafka
 import logging
 
 logger = logging.getLogger(__name__)
