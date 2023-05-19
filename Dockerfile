@@ -18,5 +18,5 @@ COPY . .
 # Expose port (adjust if necessary)
 EXPOSE 8000
 
-# Migrate and start the Django development server
-CMD python manage.py migrate && python manage.py runserver 0.0.0.0:8000
+# Start the Django development server
+CMD python manage.py migrate & python manage.py runserver 0.0.0.0:8000
