@@ -13,23 +13,19 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import json
 import os
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('DJANGO_SECRET_KEY')
+SECRET_KEY = '2f^)dfb-*$#ez%5jmibj0n4t&(+_rlwcz1wa1qetf7gxm8)fyz'
 
-
-DATABASE_NAME = config('POSTGRES_DB')
-DATABASE_USER = config('POSTGRES_USER')
-DATABASE_PASSWORD = config('POSTGRES_PASSWORD')
-DATABASE_HOST = 'postgresql' # Refers to postgresql service in docker
+DATABASE_NAME = 'students'
+DATABASE_USER = 'postgres'
+DATABASE_PASSWORD = '123456'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -54,6 +50,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_auth',
     'rest_auth.registration',
     'core',
@@ -101,7 +98,7 @@ DATABASES = {
         'NAME': DATABASE_NAME,
         'USER': DATABASE_USER,
         'PASSWORD': DATABASE_PASSWORD,
-        'HOST': DATABASE_HOST,
+        'HOST': 'postgresql',
         'PORT': 5432,
     }
 }
@@ -194,7 +191,7 @@ STATIC_URL = '/static/'
 
 # Celery configuration
 CELERY_BROKER_URL = 'redis://redis:6379/0'
-CELERY_RESULT_BACKEND = f'db+postgresql://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}/{DATABASE_NAME}'
+CELERY_RESULT_BACKEND = f'db+postgresql://postgres:123456@postgresql/students'
 
 
 CELERY_BEAT_SCHEDULE = {
