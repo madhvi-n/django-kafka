@@ -20,7 +20,7 @@ Django Kafka CRUD is a Django-based CRUD application integrated with Kafka messa
     ```
     virtualenv venv
     source venv/bin/activate
-```
+    ```
 
 - Making sure your virtual environment is activated, install the dependencies using `pip`
     ```
@@ -38,7 +38,6 @@ Django Kafka CRUD is a Django-based CRUD application integrated with Kafka messa
     ```
 
 - Build the docker images defined in docker compose file and start the containers in detached mode (in the background) 
-
     ```
     docker compose build && docker compose up -d
     ```
