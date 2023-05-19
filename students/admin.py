@@ -10,6 +10,7 @@ class StudentAdmin(admin.ModelAdmin):
         'last_name',
         'age',
         'email',
+        'created_at'
     )
     list_filter = (
         'age',
